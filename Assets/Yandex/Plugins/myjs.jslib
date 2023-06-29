@@ -45,20 +45,27 @@ mergeInto(LibraryManager.library, {
    SaveExtern:function(data){
      var dataStr = UTF8ToString(data);
      var myobj = JSON.parse(dataStr);
-     var a = player.setData(myobj, true);
-     if(ysdk.isAvailableMethod('leaderboards.setLeaderboardScore')){
+     if(typeof player !== 'undefined'){
+      player.setData(myobj, true);
+      if(ysdk.isAvailableMethod('leaderboards.setLeaderboardScore')){
         ysdk.getLeaderboards()
               .then(lb => {
                 lb.setLeaderboardScore('lb1', myobj.ClickCount);
               });
      }
+     }
+    
      },
      
     LoadExtern:function(){
+      if(typeof player !== 'undefined'){
       player.getData().then(_date=>{
         const myJSON = JSON.stringify(_date);
         SendMessage('Main Camera', 'LoadData', myJSON);
       });
+      }else{
+        SendMessage('Main Camera', 'LoadData', "{}");
+      }
     },
     
     GetLang:function(){

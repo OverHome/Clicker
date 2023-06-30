@@ -35,15 +35,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2724192210944
-    m_Localized: "?\n\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0422\u0443\u0430\u043B\u0435\u0442"
+    m_Localized: "?\n\u041F\u0420\u0418\u0413\u041B\u0410\u0421\u0418\u0422\u042C"
     m_Metadata:
       m_Items: []
   - m_Id: 3027893374976
-    m_Localized: "?\n\u0423\u043B\u0443\u0447\u0448\u0438\u0442\u044C \u041A\u043B\u0438\u043A"
+    m_Localized: "?\n\u0423\u041B\u0423\u0427\u0428\u0418\u0422\u042C \u041A\u041B\u0418\u041A"
     m_Metadata:
       m_Items: []
   - m_Id: 24821551484928
-    m_Localized: "?\n\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C \u0424\u043E\u043D"
+    m_Localized: "?\n\u0421\u041C\u0415\u041D\u0418\u0422\u042C \u041F\u041B\u042F\u0416"
     m_Metadata:
       m_Items: []
   references:

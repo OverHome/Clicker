@@ -26,7 +26,8 @@ public class Clicker : MonoBehaviour
     private static extern string GetLang();
 
 
-    private SaveData _globalData;
+    public SaveData GlobalData { get; set; }
+    [SerializeField] public RandomSoundScript randomSoundScript;
 
     public bool IsTimer { get; set; } = true;
 
@@ -40,6 +41,8 @@ public class Clicker : MonoBehaviour
     [SerializeField] private GameObject effect;
     [SerializeField] private GameObject clickText;
     [SerializeField] private GameObject clickTextCanvas;
+    [SerializeField] private string FonsFolder;
+    [SerializeField] private string GirlFolder;
 
 
     private TextMeshProUGUI _updateClickText;
@@ -73,7 +76,7 @@ public class Clicker : MonoBehaviour
         _score = 0;
         _scoreAdd = 1;
         InitButtons();
-        _globalData = new SaveData();
+        GlobalData = new SaveData();
 #if UNITY_WEBGL && !UNITY_EDITOR
         ShowAdv();
         LoadExtern();
@@ -84,8 +87,8 @@ public class Clicker : MonoBehaviour
 
     private void SaveData()
     {
-        _globalData.ClickCount = _score;
-        var data = JsonUtility.ToJson(_globalData);
+        GlobalData.ClickCount = _score;
+        var data = JsonUtility.ToJson(GlobalData);
         print(data);
 #if UNITY_WEBGL && !UNITY_EDITOR
         SaveExtern(data);
@@ -94,22 +97,23 @@ public class Clicker : MonoBehaviour
 
     private void LoadData(string jsonData)
     {
-        _globalData = JsonUtility.FromJson<SaveData>(jsonData);
-        _score = _globalData.ClickCount;
-        for (int i = 0; i < _globalData.ClickAdd; i++)
+        GlobalData = JsonUtility.FromJson<SaveData>(jsonData);
+        _score = GlobalData.ClickCount;
+        for (int i = 0; i < GlobalData.ClickAdd; i++)
         {
             NextClick();
         }
 
-        for (int i = 0; i < _globalData.BackId; i++)
+        for (int i = 0; i < GlobalData.BackId; i++)
         {
             NextBack();
         }
 
-        for (int i = 0; i < _globalData.ToiletId; i++)
+        for (int i = 0; i < GlobalData.ToiletId; i++)
         {
             NextToilet();
         }
+        randomSoundScript.UpLoadSound();
         UIUpdate();
         StartCoroutine(SaveTimer());
     }
@@ -191,7 +195,7 @@ public class Clicker : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
             ShowAdv();
 #endif
-            _globalData.ClickAdd++;
+            GlobalData.ClickAdd++;
             UIUpdate();
         }
     }
@@ -199,7 +203,7 @@ public class Clicker : MonoBehaviour
     private void NextToilet()
     {
         _updateToiletCost.RemoveAt(0);
-        clickUI.GetComponent<Image>().sprite = Resources.Load<Sprite>("Toilet/" + ToiletImg);
+        clickUI.GetComponent<Image>().sprite = Resources.Load<Sprite>(GirlFolder + ToiletImg);
     }
 
     public void UpdateToilet()
@@ -211,7 +215,7 @@ public class Clicker : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
             ShowAdv();
 #endif
-            _globalData.ToiletId++;
+            GlobalData.ToiletId++;
             UIUpdate();
         }
     }
@@ -219,7 +223,7 @@ public class Clicker : MonoBehaviour
     private void NextBack()
     {
         _updateBackCost.RemoveAt(0);
-        backUI.GetComponent<Image>().sprite = Resources.Load<Sprite>("fon/" + BackImg);
+        backUI.GetComponent<Image>().sprite = Resources.Load<Sprite>(FonsFolder + BackImg);
     }
 
     public void UpdateBack()
@@ -231,7 +235,7 @@ public class Clicker : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
             ShowAdv();
 #endif
-            _globalData.BackId++;
+            GlobalData.BackId++;
             UIUpdate();
         }
     }

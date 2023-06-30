@@ -1,5 +1,6 @@
 mergeInto(LibraryManager.library, {
    ShowAdv:function(){
+   if(typeof ysdk !== 'undefined'){
     SendMessage('MainMusic', 'MuteSound');
     ysdk.adv.showFullscreenAdv({
     callbacks: {
@@ -12,9 +13,11 @@ mergeInto(LibraryManager.library, {
         }
         }
         })
+        }
    },
    
    ShowRew:function(){
+    if(typeof ysdk !== 'undefined'){
     isReward = false;
      ysdk.adv.showRewardedVideo({
          callbacks: {
@@ -40,9 +43,11 @@ mergeInto(LibraryManager.library, {
              }
          }
      })
+     }
      },
      
    SaveExtern:function(data){
+    if(typeof ysdk !== 'undefined'){
      var dataStr = UTF8ToString(data);
      var myobj = JSON.parse(dataStr);
      if(typeof player !== 'undefined'){
@@ -54,10 +59,11 @@ mergeInto(LibraryManager.library, {
               });
      }
      }
-    
+    }
      },
      
     LoadExtern:function(){
+     if(typeof ysdk !== 'undefined'){
       if(typeof player !== 'undefined'){
       player.getData().then(_date=>{
         const myJSON = JSON.stringify(_date);
@@ -66,13 +72,18 @@ mergeInto(LibraryManager.library, {
       }else{
         SendMessage('Main Camera', 'LoadData', "{}");
       }
+      }else{
+        SendMessage('Main Camera', 'LoadData', "{}");
+      }
     },
     
     GetLang:function(){
+    if(typeof ysdk !== 'undefined'){
         var returnStr = ysdk.environment.i18n.lang;
         var bufferSize = lengthBytesUTF8(returnStr) + 1;
         var buffer = _malloc(bufferSize);
         stringToUTF8(returnStr, buffer, bufferSize);
         return buffer;
+    }
     }
 });

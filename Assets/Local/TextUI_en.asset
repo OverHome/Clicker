@@ -37,11 +37,13 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2724192210944
-    m_Localized: "?\nUpdate Toilet\r"
+    m_Localized: '?
+
+      INVITE'
     m_Metadata:
       m_Items: []
   - m_Id: 3027893374976
-    m_Localized: "?\nImprove \u0421lick"
+    m_Localized: "?\nIMPROVE \u0421LICK"
     m_Metadata:
       m_Items: []
   - m_Id: 11930177785856
@@ -51,7 +53,7 @@ MonoBehaviour:
   - m_Id: 24821551484928
     m_Localized: '?
 
-      Update Back'
+      CHANGE BEACH'
     m_Metadata:
       m_Items: []
   references:

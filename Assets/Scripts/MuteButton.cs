@@ -9,6 +9,8 @@ public class MuteButton : MonoBehaviour
     [SerializeField] private AudioSource sound;
     [SerializeField] private AudioClip mute;
     [SerializeField] private AudioClip unmute;
+    [SerializeField] private string offImg;
+    [SerializeField] private string onImg;
 
     private Image _image;
     private AudioSource _audioSource;
@@ -21,7 +23,7 @@ public class MuteButton : MonoBehaviour
     public void MuteSound()
     {
         sound.mute = !sound.mute;
-        _image.sprite = Resources.Load<Sprite>(sound.mute ? "btn/OFF" : "btn/ON");
+        _image.sprite = Resources.Load<Sprite>(sound.mute ? offImg : onImg);
         _audioSource.PlayOneShot(sound.mute ? mute : unmute);
     }
 }

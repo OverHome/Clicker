@@ -140,17 +140,17 @@ public class Clicker : MonoBehaviour
         updateClickUI.SetActive(ClickCost != 0);
         updateClickUI.GetComponent<Button>().interactable = _score >= ClickCost;
         _updateClickText.color = new Color(_updateClickText.color.r, _updateClickText.color.g, _updateClickText.color.b,
-            Math.Max(0.4f, _score >= ClickCost ? 1f : 0f));
+            Math.Max(0.6f, _score >= ClickCost ? 1f : 0f));
 
         updateToiletUI.SetActive(ToiletCost != 0);
         updateToiletUI.GetComponent<Button>().interactable = _score >= ToiletCost;
         _updateToiletText.color = new Color(_updateToiletText.color.r, _updateClickText.color.g,
-            _updateClickText.color.b, Math.Max(0.4f, _score >= ToiletCost ? 1f : 0f));
+            _updateClickText.color.b, Math.Max(0.6f, _score >= ToiletCost ? 1f : 0f));
 
         updateBackUI.SetActive(BackCost != 0);
         updateBackUI.GetComponent<Button>().interactable = _score >= BackCost;
         _updateBackText.color = new Color(_updateBackText.color.r, _updateBackText.color.g, _updateBackText.color.b,
-            Math.Max(0.4f, _score >= BackCost ? 1f : 0f));
+            Math.Max(0.6f, _score >= BackCost ? 1f : 0f));
     }
 
     private void UpdateButtonCost()

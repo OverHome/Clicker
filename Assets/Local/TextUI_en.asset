@@ -37,7 +37,10 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2724192210944
-    m_Localized: "?\nUpdate Toilet\r"
+    m_Localized: 'ADVERTISING
+
+
+'
     m_Metadata:
       m_Items: []
   - m_Id: 3027893374976
@@ -52,6 +55,43 @@ MonoBehaviour:
     m_Localized: '?
 
       Update Back'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10077652418555904
+    m_Localized: '0
+
+      Update Camera'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10080127452180480
+    m_Localized: '0
+
+      Update Camera'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10080336630509568
+    m_Localized: '0
+
+      Update Camera'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10083265185837056
+    m_Localized: '0
+
+      Update Camera'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10084686295724032
+    m_Localized: '0
+
+      Update Camera'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10086803920121856
+    m_Localized: 'ADVERTISING
+
+
+'
     m_Metadata:
       m_Items: []
   references:

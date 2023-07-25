@@ -40,7 +40,10 @@ public class Clicker : MonoBehaviour
     [SerializeField] private GameObject effect;
     [SerializeField] private GameObject clickText;
     [SerializeField] private GameObject clickTextCanvas;
-
+    [SerializeField] private GameObject addWindow;
+    [SerializeField] private TextMeshProUGUI addText;
+    [SerializeField] private string FonsFolder;
+    [SerializeField] private string GirlFolder;
 
     private TextMeshProUGUI _updateClickText;
     private TextMeshProUGUI _updateToiletText;
@@ -68,10 +71,13 @@ public class Clicker : MonoBehaviour
     private int _multipl = 1;
     private float _timeLeft;
 
+    private bool canShowAdw;
+
     private void Start()
     {
         _score = 0;
         _scoreAdd = 1;
+        canShowAdw = true;
         InitButtons();
         _globalData = new SaveData();
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -79,6 +85,7 @@ public class Clicker : MonoBehaviour
         LoadExtern();
 #endif
         StartCoroutine(SetLang());
+        StartCoroutine(AdwTimeOut());
         
     }
 
@@ -188,18 +195,17 @@ public class Clicker : MonoBehaviour
         {
             _score -= ClickCost;
             NextClick();
-#if UNITY_WEBGL && !UNITY_EDITOR
-            ShowAdv();
-#endif
+            
             _globalData.ClickAdd++;
             UIUpdate();
+            StartCoroutine(StartAdd());
         }
     }
 
     private void NextToilet()
     {
         _updateToiletCost.RemoveAt(0);
-        clickUI.GetComponent<Image>().sprite = Resources.Load<Sprite>("Toilet/" + ToiletImg);
+        clickUI.GetComponent<Image>().sprite = Resources.Load<Sprite>(GirlFolder + ToiletImg);
     }
 
     public void UpdateToilet()
@@ -208,18 +214,17 @@ public class Clicker : MonoBehaviour
         {
             _score -= ToiletCost;
             NextToilet();
-#if UNITY_WEBGL && !UNITY_EDITOR
-            ShowAdv();
-#endif
+            
             _globalData.ToiletId++;
             UIUpdate();
+            StartCoroutine(StartAdd());
         }
     }
 
     private void NextBack()
     {
         _updateBackCost.RemoveAt(0);
-        backUI.GetComponent<Image>().sprite = Resources.Load<Sprite>("fon/" + BackImg);
+        backUI.GetComponent<Image>().sprite = Resources.Load<Sprite>(FonsFolder + BackImg);
     }
 
     public void UpdateBack()
@@ -228,17 +233,16 @@ public class Clicker : MonoBehaviour
         {
             _score -= BackCost;
             NextBack();
-#if UNITY_WEBGL && !UNITY_EDITOR
-            ShowAdv();
-#endif
+            
             _globalData.BackId++;
             UIUpdate();
+            StartCoroutine(StartAdd());
         }
     }
 
     public void GetX2()
     {
-        ShowRew();
+        StartCoroutine(StartRew());
     }
 
     public void SetX2()
@@ -289,5 +293,57 @@ public class Clicker : MonoBehaviour
         float minutes = Mathf.FloorToInt(_timeLeft / 60);
         float seconds = Mathf.FloorToInt(_timeLeft % 60);
         x2UI.GetComponentInChildren<TextMeshProUGUI>().text = string.Format("{0:00} : {1:00}", minutes, seconds);
+    }
+
+    public IEnumerator AdwTimeOut()
+    {
+        canShowAdw = false;
+        yield return new WaitForSeconds(120.0f);
+        canShowAdw = true;
+    }
+    
+    public IEnumerator StartRew()
+    {
+        SetActiveAllBtn(false);
+        addWindow.SetActive(true);
+        for (int i = 3; 0 < i; i--)
+        {
+            addText.text = i+"...";
+            yield return new WaitForSeconds(1.0f);
+        }
+#if UNITY_WEBGL && !UNITY_EDITOR
+        ShowRew();
+#endif
+        addWindow.SetActive(false);
+        SetActiveAllBtn(true);
+    }
+
+    public IEnumerator StartAdd()
+    {
+        if (canShowAdw)
+        {
+            SetActiveAllBtn(false);
+            addWindow.SetActive(true);
+            for (int i = 3; 0 < i; i--)
+            {
+                addText.text = i+"...";
+                yield return new WaitForSeconds(1.0f);
+            }
+#if UNITY_WEBGL && !UNITY_EDITOR
+            ShowAdv();
+#endif
+            addWindow.SetActive(false);
+            StartCoroutine(AdwTimeOut());
+
+            SetActiveAllBtn(true);
+        }
+    }
+    
+    public void SetActiveAllBtn(bool status)
+    {
+        updateClickUI.GetComponent<Button>().interactable = status;
+        updateToiletUI.GetComponent<Button>().interactable = status;
+        updateBackUI.GetComponent<Button>().interactable = status;
+        x2UI.GetComponent<Button>().interactable = status;
     }
 }

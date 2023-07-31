@@ -54,8 +54,8 @@ public class Clicker : MonoBehaviour
     private int _score;
 
     private List<int> _updateClickCost = new List<int>() { 125, 375, 625, 1000, 2000, 3000, 5000, 12500, 25000 };
-    private List<int> _updateToiletCost = new List<int>() { 250, 750, 1250, 2000, 4000, 6000, 10000, 25000, 50000 };
-    private List<int> _updateBackCost = new List<int>() { 10, 2000, 5000, 10000, 25000, 50000 };
+    private List<int> _updateToiletCost = new List<int>() { 150, 350, 750, 2500, 25000 };
+    private List<int> _updateBackCost = new List<int>() { 10, 50, 250, 500, 1000, 5000 };
 
     private Queue<string> _toiletImg = new Queue<string>(new[] { "2", "3", "4", "5", "6", "7", "8", "9", "10", });
     private Queue<string> _backImg = new Queue<string>(new[] { "2", "3", "4", "5", "6", "7" });
@@ -316,6 +316,7 @@ public class Clicker : MonoBehaviour
 #endif
         addWindow.SetActive(false);
         SetActiveAllBtn(true);
+        SetActiveButtons();
     }
 
     public IEnumerator StartAdd()
@@ -336,6 +337,7 @@ public class Clicker : MonoBehaviour
             StartCoroutine(AdwTimeOut());
 
             SetActiveAllBtn(true);
+            SetActiveButtons();
         }
     }
     
@@ -345,5 +347,6 @@ public class Clicker : MonoBehaviour
         updateToiletUI.GetComponent<Button>().interactable = status;
         updateBackUI.GetComponent<Button>().interactable = status;
         x2UI.GetComponent<Button>().interactable = status;
+        clickUI.GetComponent<Button>().interactable = status;
     }
 }

@@ -13,6 +13,7 @@ public class MuteButton : MonoBehaviour
 
     private Image _image;
     private AudioSource _audioSource;
+
     private void Start()
     {
         _image = GetComponent<Image>();
@@ -22,7 +23,16 @@ public class MuteButton : MonoBehaviour
     public void MuteSound()
     {
         sound.mute = !sound.mute;
-        _image.sprite = Resources.Load<Sprite>(sound.mute ? folder+"OFF" : folder+"ON");
+        _image.sprite = Resources.Load<Sprite>(sound.mute ? folder + "OFF" : folder + "ON");
         _audioSource.PlayOneShot(sound.mute ? mute : unmute);
+        StartCoroutine(Mut());
     }
+
+    IEnumerator Mut()
+    {
+        if(sound.mute)
+            yield return new WaitForSeconds(0.5f);
+        AudioListener.volume = sound.mute? 0 : 1;
+    }
+
 }
